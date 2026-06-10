@@ -1,0 +1,4 @@
+# Videos demasiado pesados para GitHub (limite 100MB por archivo)
+Videos orienturs/
+*.MOV
+*.mov

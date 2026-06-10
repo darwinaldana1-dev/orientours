@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orientours | Agencia de Viajes y Turismo — Excursiones desde Medellín y Oriente</title>
+<meta name="description" content="Orientours: excursiones y planes turísticos 2026 desde Medellín y el Oriente Antioqueño. Avistamiento de ballenas, Capurganá, Isla Fuerte, Nevado del Ruiz, Norcasia, Mutatá y más.">
+<link rel="icon" type="image/png" href="logo-icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul-prof:#0b2a4a;
+    --azul:#10518f;
+    --turquesa:#3a86ab; /* azul del logo Orientours */
+    --arena:#f7f1e6;
+    --coral:#ff6b4a;
+    --amarillo:#ffc145;
+    --verde:#2e8b57;
+    --texto:#22303f;
+    --gris:#5c6b7a;
+    --blanco:#ffffff;
+    --sombra:0 18px 45px rgba(11,42,74,.14);
+    --radio:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--texto);
+    background:var(--blanco);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  ul{list-style:none}
+
+  /* ===== NAV ===== */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 5vw;
+    transition:background .35s,box-shadow .35s,padding .35s;
+  }
+  .nav.solida{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(11,42,74,.10);padding:10px 5vw}
+  .nav .logo{font-weight:800;font-size:1.45rem;color:#fff;display:flex;align-items:center;gap:9px;transition:color .35s}
+  .nav.solida .logo{color:var(--azul-prof)}
+  .logo .brujula{
+    width:42px;height:42px;border-radius:50%;
+    background:#fff;
+    display:grid;place-items:center;
+    box-shadow:0 6px 16px rgba(11,42,74,.30);
+    padding:5px;
+  }
+  .logo .brujula img{width:100%;height:100%;object-fit:contain}
+  .logo span em{font-style:normal;color:var(--coral)}
+  .nav ul{display:flex;gap:30px;align-items:center}
+  .nav ul a{color:#fff;font-weight:600;font-size:.95rem;opacity:.92;transition:color .35s,opacity .2s}
+  .nav.solida ul a{color:var(--texto)}
+  .nav ul a:hover{opacity:1;color:var(--coral)}
+  .btn-nav{
+    background:var(--coral);color:#fff !important;padding:10px 22px;border-radius:999px;
+    font-weight:700;box-shadow:0 8px 20px rgba(255,107,74,.4);transition:transform .2s;
+  }
+  .btn-nav:hover{transform:translateY(-2px)}
+  .hamb{display:none;background:none;border:none;cursor:pointer;z-index:110}
+  .hamb span{display:block;width:26px;height:3px;border-radius:3px;background:#fff;margin:5px 0;transition:.3s}
+  .nav.solida .hamb span{background:var(--azul-prof)}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    position:relative;
+    padding:140px 5vw 120px;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(255,193,69,.35), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(15,163,177,.5), transparent 60%),
+      linear-gradient(160deg,#0b2a4a 0%, #0e3a66 38%, #0fa3b1 100%);
+    color:#fff;overflow:hidden;
+  }
+  .hero::before{ /* sol */
+    content:"";position:absolute;top:11%;right:12%;
+    width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #ffe9a8, var(--amarillo) 65%);
+    box-shadow:0 0 90px 30px rgba(255,193,69,.45);
+    animation:flotar 7s ease-in-out infinite;
+  }
+  @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  .hero-inner{max-width:820px;position:relative;z-index:2}
+  .hero .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
+    padding:8px 18px;border-radius:999px;font-size:.88rem;font-weight:600;
+    backdrop-filter:blur(6px);margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.4rem,5.6vw,4.3rem);
+    line-height:1.12;font-weight:700;margin-bottom:22px;
+  }
+  .hero h1 .destacado{color:var(--amarillo);font-style:italic}
+  .hero p.sub{font-size:clamp(1rem,1.6vw,1.22rem);max-width:600px;opacity:.92;margin-bottom:38px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 32px;border-radius:999px;font-weight:700;font-size:1rem;
+    transition:transform .2s,box-shadow .2s;cursor:pointer;border:none;
+  }
+  .btn-coral{background:var(--coral);color:#fff;box-shadow:0 12px 28px rgba(255,107,74,.45)}
+  .btn-coral:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(255,107,74,.55)}
+  .btn-fantasma{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+  .btn-fantasma:hover{background:rgba(255,255,255,.22);transform:translateY(-3px)}
+  .hero-olas{position:absolute;bottom:-2px;left:0;right:0;z-index:1}
+  .hero-olas svg{display:block;width:100%;height:110px}
+
+  /* ===== BARRA STATS ===== */
+  .stats{
+    display:flex;justify-content:center;gap:clamp(20px,6vw,90px);flex-wrap:wrap;
+    padding:34px 5vw;background:#fff;
+    margin-top:-6px;
+  }
+  .stat{text-align:center}
+  .stat b{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--azul);display:block;font-weight:800}
+  .stat span{color:var(--gris);font-size:.9rem;font-weight:600}
+
+  /* ===== SECCIONES ===== */
+  section{padding:90px 5vw}
+  .titulo-seccion{text-align:center;max-width:680px;margin:0 auto 56px}
+  .titulo-seccion .kicker{
+    text-transform:uppercase;letter-spacing:.18em;font-weight:700;
+    color:var(--turquesa);font-size:.82rem;display:block;margin-bottom:12px;
+  }
+  .titulo-seccion h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.9rem,3.6vw,2.7rem);color:var(--azul-prof);margin-bottom:14px;
+  }
+  .titulo-seccion p{color:var(--gris)}
+
+  /* ===== FILTROS ===== */
+  .filtros{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+  .filtro{
+    padding:9px 22px;border-radius:999px;border:1.5px solid #dbe4ec;
+    background:#fff;color:var(--gris);font-weight:700;font-size:.9rem;cursor:pointer;
+    transition:.25s;font-family:inherit;
+  }
+  .filtro:hover{border-color:var(--turquesa);color:var(--turquesa)}
+  .filtro.activo{background:var(--azul);border-color:var(--azul);color:#fff;box-shadow:0 8px 20px rgba(16,81,143,.3)}
+
+  /* ===== GRID DESTINOS ===== */
+  .destinos{background:var(--arena)}
+  .grid-destinos{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+    gap:30px;max-width:1240px;margin:0 auto;
+  }
+  .card{
+    background:#fff;border-radius:var(--radio);overflow:hidden;
+    box-shadow:var(--sombra);display:flex;flex-direction:column;
+    transition:transform .3s,box-shadow .3s;
+    opacity:0;transform:translateY(30px);
+  }
+  .card.visible{opacity:1;transform:translateY(0);transition:opacity .6s,transform .6s,box-shadow .3s}
+  .card.visible:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(11,42,74,.2)}
+  .card.oculta{display:none}
+  .card-visual{
+    height:215px;position:relative;display:grid;place-items:center;
+    font-size:4.6rem;
+  }
+  .card-visual::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(420px 200px at 80% 0%, rgba(255,255,255,.28), transparent 60%);
+  }
+  .v-ballenas{background:linear-gradient(150deg,#06283d,#1363a8 60%,#37b4c3)}
+  .v-capurgana{background:linear-gradient(150deg,#0c7489,#19b3a6 55%,#9be8c4)}
+  .v-islafuerte{background:linear-gradient(150deg,#f7b733,#ec7e3c 55%,#d6543a)}
+  .v-murillo{background:linear-gradient(150deg,#314f6e,#6f8ba6 55%,#cfd9e3)}
+  .v-mutata{background:linear-gradient(150deg,#1c6b46,#2e9e63 55%,#8fd0a4)}
+  .v-norcasia{background:linear-gradient(150deg,#0a7e8c,#23a8a0 55%,#7fd0c2)}
+  .v-makai{background:linear-gradient(150deg,#b53471,#ee5253 55%,#feca57)}
+  .etiqueta{
+    position:absolute;top:16px;left:16px;z-index:2;
+    background:rgba(255,255,255,.94);color:var(--azul-prof);
+    padding:6px 15px;border-radius:999px;font-size:.76rem;font-weight:800;
+    text-transform:uppercase;letter-spacing:.06em;
+  }
+  .etiqueta.fuego{background:var(--coral);color:#fff}
+  .card-cuerpo{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .card-cuerpo h3{font-size:1.32rem;color:var(--azul-prof);font-weight:800;margin-bottom:6px}
+  .card-cuerpo .lugar{color:var(--turquesa);font-weight:700;font-size:.86rem;margin-bottom:12px}
+  .card-cuerpo p.desc{color:var(--gris);font-size:.94rem;margin-bottom:18px;flex:1}
+  .puntos{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .puntos li{
+    background:var(--arena);color:var(--azul-prof);font-size:.78rem;font-weight:700;
+    padding:5px 12px;border-radius:999px;
+  }
+  .card-pie{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .precio small{display:block;color:var(--gris);font-size:.76rem;font-weight:600}
+  .precio b{color:var(--coral);font-size:1.45rem;font-weight:800}
+  .precio i{font-style:normal;font-size:.8rem;color:var(--gris);font-weight:600}
+  .btn-card{
+    background:var(--azul);color:#fff;padding:11px 22px;border-radius:999px;
+    font-weight:700;font-size:.9rem;border:none;cursor:pointer;font-family:inherit;
+    transition:.25s;white-space:nowrap;
+  }
+  .btn-card:hover{background:var(--azul-prof);transform:translateY(-2px)}
+
+  /* ===== POR QUÉ NOSOTROS ===== */
+  .grid-razones{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:26px;max-width:1180px;margin:0 auto;
+  }
+  .razon{
+    background:#fff;border:1.5px solid #edf1f5;border-radius:var(--radio);
+    padding:34px 28px;text-align:center;transition:.3s;
+  }
+  .razon:hover{border-color:var(--turquesa);transform:translateY(-6px);box-shadow:var(--sombra)}
+  .razon .icono{
+    width:64px;height:64px;margin:0 auto 18px;border-radius:18px;
+    display:grid;place-items:center;font-size:1.8rem;
+    background:linear-gradient(135deg,rgba(15,163,177,.14),rgba(16,81,143,.14));
+  }
+  .razon h3{color:var(--azul-prof);font-size:1.08rem;margin-bottom:8px}
+  .razon p{color:var(--gris);font-size:.9rem}
+
+  /* ===== PASOS ===== */
+  .pasos{background:linear-gradient(160deg,var(--azul-prof),var(--azul));color:#fff}
+  .pasos .titulo-seccion h2{color:#fff}
+  .pasos .titulo-seccion p{color:rgba(255,255,255,.78)}
+  .pasos .titulo-seccion .kicker{color:var(--amarillo)}
+  .grid-pasos{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:26px;max-width:1180px;margin:0 auto;counter-reset:paso;
+  }
+  .paso{
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+    border-radius:var(--radio);padding:32px 26px;position:relative;backdrop-filter:blur(4px);
+  }
+  .paso::before{
+    counter-increment:paso;content:"0" counter(paso);
+    font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;
+    color:var(--amarillo);display:block;margin-bottom:10px;
+  }
+  .paso h3{font-size:1.05rem;margin-bottom:8px}
+  .paso p{font-size:.9rem;color:rgba(255,255,255,.8)}
+
+  /* ===== FAQ ===== */
+  .faq-lista{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .faq-item{
+    background:#fff;border:1.5px solid #e8edf2;border-radius:16px;overflow:hidden;
+    transition:border-color .25s,box-shadow .25s;
+  }
+  .faq-item[open]{border-color:var(--turquesa);box-shadow:var(--sombra)}
+  .faq-item summary{
+    list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;
+    color:var(--azul-prof);display:flex;justify-content:space-between;align-items:center;gap:14px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{
+    content:"+";font-size:1.5rem;color:var(--turquesa);font-weight:600;
+    transition:transform .3s;line-height:1;
+  }
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-item .faq-resp{padding:0 24px 22px;color:var(--gris);font-size:.95rem}
+
+  /* ===== CTA FINAL ===== */
+  .cta-final{
+    background:
+      radial-gradient(700px 320px at 15% 0%, rgba(255,193,69,.25), transparent 60%),
+      linear-gradient(140deg,#0fa3b1,#10518f);
+    border-radius:30px;max-width:1180px;margin:0 auto;
+    padding:clamp(46px,7vw,80px);text-align:center;color:#fff;
+  }
+  .cta-final h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:14px}
+  .cta-final p{max-width:560px;margin:0 auto 32px;opacity:.92}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--azul-prof);color:rgba(255,255,255,.82);padding:64px 5vw 28px;margin-top:90px}
+  .grid-footer{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;max-width:1180px;margin:0 auto 44px;
+  }
+  .grid-footer h4{color:#fff;margin-bottom:16px;font-size:1rem}
+  .grid-footer li{margin-bottom:10px;font-size:.92rem}
+  .grid-footer a:hover{color:var(--amarillo)}
+  .footer-logo{font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .footer-logo em{font-style:normal;color:var(--coral)}
+  .footer-logo .chip-logo{
+    width:46px;height:46px;border-radius:14px;background:#fff;
+    display:grid;place-items:center;padding:6px;flex:none;
+  }
+  .footer-logo .chip-logo img{width:100%;height:100%;object-fit:contain}
+  .copy{
+    text-align:center;border-top:1px solid rgba(255,255,255,.14);
+    padding-top:24px;font-size:.84rem;color:rgba(255,255,255,.55);
+    max-width:1180px;margin:0 auto;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-fondo{
+    position:fixed;inset:0;background:rgba(7,22,38,.66);backdrop-filter:blur(5px);
+    display:none;align-items:center;justify-content:center;z-index:200;padding:20px;
+  }
+  .modal-fondo.abierto{display:flex;animation:aparecer .25s ease}
+  @keyframes aparecer{from{opacity:0}to{opacity:1}}
+  .modal{
+    background:#fff;border-radius:26px;max-width:680px;width:100%;
+    max-height:88vh;overflow-y:auto;position:relative;
+    animation:subir .35s cubic-bezier(.2,.8,.3,1);
+  }
+  @keyframes subir{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .modal-cab{padding:34px 36px 20px;color:#fff;border-radius:26px 26px 0 0;position:relative}
+  .modal-cab h3{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:4px}
+  .modal-cab .sub-modal{opacity:.92;font-weight:600;font-size:.92rem}
+  .cerrar{
+    position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,.22);color:#fff;border:none;font-size:1.25rem;
+    cursor:pointer;display:grid;place-items:center;transition:.2s;
+  }
+  .cerrar:hover{background:rgba(255,255,255,.4);transform:rotate(90deg)}
+  .modal-cuerpo{padding:30px 36px 36px}
+  .modal-cuerpo h4{
+    color:var(--azul-prof);font-size:.85rem;text-transform:uppercase;
+    letter-spacing:.1em;margin:24px 0 10px;
+  }
+  .modal-cuerpo h4:first-child{margin-top:0}
+  .modal-cuerpo ul.incluye li{
+    padding-left:28px;position:relative;margin-bottom:8px;color:var(--texto);font-size:.94rem;
+  }
+  .modal-cuerpo ul.incluye li::before{
+    content:"✓";position:absolute;left:0;top:0;
+    color:var(--verde);font-weight:800;
+  }
+  .fechas{display:flex;flex-wrap:wrap;gap:8px}
+  .fechas span{
+    background:var(--arena);border:1px solid #ecdfc8;color:var(--azul-prof);
+    padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:700;
+  }
+  .tabla-precios{width:100%;border-collapse:collapse;font-size:.92rem}
+  .tabla-precios td{padding:9px 4px;border-bottom:1px dashed #e3e9ef}
+  .tabla-precios td:last-child{text-align:right;font-weight:800;color:var(--coral)}
+  .nota-modal{
+    background:#fff7e8;border-left:4px solid var(--amarillo);
+    padding:12px 16px;border-radius:0 12px 12px 0;font-size:.86rem;color:#7a5b16;margin-top:22px;
+  }
+  .modal-cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn-ws{
+    flex:1;justify-content:center;
+    background:#25d366;color:#fff;box-shadow:0 10px 24px rgba(37,211,102,.4);
+  }
+  .btn-ws:hover{transform:translateY(-2px)}
+
+  /* ===== WHATSAPP FLOTANTE ===== */
+  .ws-flotante{
+    position:fixed;bottom:26px;right:26px;z-index:150;
+    width:60px;height:60px;border-radius:50%;
+    background:#25d366;display:grid;place-items:center;
+    box-shadow:0 12px 30px rgba(37,211,102,.5);
+    transition:transform .25s;
+  }
+  .ws-flotante:hover{transform:scale(1.1)}
+  .ws-flotante svg{width:32px;height:32px;fill:#fff}
+
+  /* ===== REVEAL GENÉRICO ===== */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:840px){
+    .nav ul{
+      position:fixed;inset:0;background:var(--azul-prof);
+      flex-direction:column;justify-content:center;gap:34px;
+      transform:translateX(100%);transition:transform .35s;z-index:105;
+    }
+    .nav ul.abierto{transform:translateX(0)}
+    .nav ul a{color:#fff !important;font-size:1.2rem}
+    .hamb{display:block}
+    .hamb.activo span:nth-child(1){transform:translateY(8px) rotate(45deg);background:#fff}
+    .hamb.activo span:nth-child(2){opacity:0}
+    .hamb.activo span:nth-child(3){transform:translateY(-8px) rotate(-45deg);background:#fff}
+    .hero::before{width:100px;height:100px;right:8%;top:9%}
+    .modal-cab,.modal-cuerpo{padding-left:22px;padding-right:22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#inicio" class="logo">
+    <span class="brujula"><img src="logo-icono.png" alt="Logo Orientours"></span>
+    <span>Orien<em>tours</em></span>
+  </a>
+  <button class="hamb" id="hamb" aria-label="Menú"><span></span><span></span><span></span></button>
+  <ul id="menu">
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#nosotros">Por qué nosotros</a></li>
+    <li><a href="#reservar">Cómo reservar</a></li>
+    <li><a href="#faq">Preguntas</a></li>
+    <li><a href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20informaci%C3%B3n%20de%20sus%20planes%20de%20viaje" target="_blank" rel="noopener" class="btn-nav">Reserva ahora</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="inicio">
+  <div class="hero-inner">
+    <span class="chip">📍 Salidas desde Medellín y Oriente Antioqueño · Temporada 2026</span>
+    <h1>Vive Colombia,<br>viaja <span class="destacado">diferente</span> con Orientours</h1>
+    <p class="sub">Ballenas en el Pacífico, playas vírgenes del Caribe, páramos de alta montaña y ríos cristalinos. Planes todo organizado: transporte, hospedaje, alimentación, seguros y coordinador de viaje.</p>
+    <div class="hero-cta">
+      <a href="#destinos" class="btn btn-coral">Explorar destinos →</a>
+      <a href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20asesor%C3%ADa%20para%20elegir%20mi%20pr%C3%B3ximo%20viaje" target="_blank" rel="noopener" class="btn btn-fantasma">💬 Hablar con un asesor</a>
+    </div>
+  </div>
+  <div class="hero-olas">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,110 480,10 720,45 C960,80 1200,20 1440,60 L1440,110 L0,110 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ STATS ============ -->
+<div class="stats reveal">
+  <div class="stat"><b>7+</b><span>Destinos increíbles</span></div>
+  <div class="stat"><b>2026</b><span>Salidas confirmadas</span></div>
+  <div class="stat"><b>100%</b><span>Todo organizado</span></div>
+  <div class="stat"><b>40</b><span>Viajeros por salida</span></div>
+</div>
+
+<!-- ============ DESTINOS ============ -->
+<section class="destinos" id="destinos">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Nuestras experiencias</span>
+    <h2>Destinos que te van a enamorar</h2>
+    <p>Elige tu próxima aventura: mar, montaña, río o fiesta. Todos los planes incluyen transporte, hospedaje, seguros y coordinador Orientours.</p>
+  </div>
+
+  <div class="filtros reveal">
+    <button class="filtro activo" data-filtro="todos">Todos</button>
+    <button class="filtro" data-filtro="playa">🏝️ Playa y mar</button>
+    <button class="filtro" data-filtro="montana">🏔️ Montaña</button>
+    <button class="filtro" data-filtro="rio">💦 Ríos y aventura</button>
+    <button class="filtro" data-filtro="fiesta">🎉 Fiesta</button>
+  </div>
+
+  <div class="grid-destinos">
+
+    <!-- Ballenas -->
+    <article class="card" data-cat="playa">
+      <div class="card-visual v-ballenas"><span class="etiqueta fuego">⭐ Más vendido</span>🐋</div>
+      <div class="card-cuerpo">
+        <h3>Avistamiento de Ballenas</h3>
+        <div class="lugar">📍 Bahía Málaga · Pacífico colombiano</div>
+        <p class="desc">3 noches de pura magia: tour en lancha para ver ballenas jorobadas, playas doradas, manglares y piscina natural de agua dulce. Hotel Magüipi con alimentación incluida.</p>
+        <ul class="puntos">
+          <li>2 noches de hotel</li><li>Alimentación</li><li>Tour de ballenas</li><li>Jul – Sep</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$1.020.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="ballenas">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Capurganá -->
+    <article class="card" data-cat="playa">
+      <div class="card-visual v-capurgana"><span class="etiqueta">🇵🇦 Incluye Panamá</span>🌴</div>
+      <div class="card-cuerpo">
+        <h3>Capurganá + Sapzurro + La Miel</h3>
+        <div class="lugar">📍 Chocó caribeño y Panamá</div>
+        <p class="desc">Dos países en un solo viaje: aguas cristalinas, snorkel, Cabo Tiburón y la paradisíaca playa La Miel en Panamá. Hotel con piscina y aire acondicionado. Sin pasaporte.</p>
+        <ul class="puntos">
+          <li>Hotel con piscina</li><li>4 destinos</li><li>Snorkel</li><li>Jul – Dic</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$875.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="capurgana">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Isla Fuerte -->
+    <article class="card" data-cat="playa">
+      <div class="card-visual v-islafuerte">🏝️</div>
+      <div class="card-cuerpo">
+        <h3>Isla Fuerte</h3>
+        <div class="lugar">📍 Caribe diferente y auténtico</div>
+        <p class="desc">Una isla natural y poco explorada: vuelta a la isla en lancha, la Bonga, el Árbol que Camina, la Cueva de Morgan y playas de ensueño como Punta Arena y San Diego.</p>
+        <ul class="puntos">
+          <li>2 noches</li><li>Toda la alimentación</li><li>Tour en lancha</li><li>14 – 17 Ago</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$735.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="islafuerte">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Murillo -->
+    <article class="card" data-cat="montana">
+      <div class="card-visual v-murillo">🏔️</div>
+      <div class="card-cuerpo">
+        <h3>Murillo y Nevado del Ruiz</h3>
+        <div class="lugar">📍 Tolima · PNN Los Nevados</div>
+        <p class="desc">Alta montaña, frailejones, lagunas de páramo y posible avistamiento del Cóndor de los Andes. Ingreso al Parque Nacional incluido, con guía local experto.</p>
+        <ul class="puntos">
+          <li>+4.000 msnm</li><li>Ingreso al PNN</li><li>Guía local</li><li>Jul – Dic</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$500.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="murillo">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Norcasia -->
+    <article class="card" data-cat="rio">
+      <div class="card-visual v-norcasia">🛶</div>
+      <div class="card-cuerpo">
+        <h3>Norcasia y Río La Miel</h3>
+        <div class="lugar">📍 Caldas · Oriente caldense</div>
+        <p class="desc">Body rafting por las aguas turquesa del Río La Miel, Cascada La Clara y el mirador del Embalse Amaní. Aventura nivel 2 de 5: diversión sin adrenalina extrema.</p>
+        <ul class="puntos">
+          <li>Body rafting</li><li>1 noche</li><li>Asistencia médica</li><li>Jul – Dic</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$420.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="norcasia">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Mutatá -->
+    <article class="card" data-cat="rio">
+      <div class="card-visual v-mutata"><span class="etiqueta">💰 Mejor precio</span>💦</div>
+      <div class="card-cuerpo">
+        <h3>Mutatá Mágico</h3>
+        <div class="lugar">📍 Urabá antioqueño</div>
+        <p class="desc">Charco Puenteadero y las Cavernas del Río Bedó: formaciones rocosas y aguas cristalinas en plena naturaleza. El plan más económico para escaparte un fin de semana.</p>
+        <ul class="puntos">
+          <li>1 noche</li><li>2 almuerzos</li><li>Tubing opcional</li><li>Jul – Dic</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$280.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="mutata">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Solos y solas -->
+    <article class="card" data-cat="fiesta playa">
+      <div class="card-visual v-makai"><span class="etiqueta fuego">🔥 Cupos limitados</span>🎉</div>
+      <div class="card-cuerpo">
+        <h3>Solos y Solas · Makai</h3>
+        <div class="lugar">📍 Necoclí · Caribe antioqueño</div>
+        <p class="desc">El plan para solteros y solteras (20–45 años): pool party con DJ, fiesta de blanco, clases de champeta y coctelería, vóley playa y playa 24 horas. ¡Se conocen al llegar!</p>
+        <ul class="puntos">
+          <li>Pool party + DJ</li><li>Fiesta de blanco</li><li>20 a 45 años</li><li>Jul – Ago</li>
+        </ul>
+        <div class="card-pie">
+          <div class="precio"><small>Desde</small><b>$730.000</b><i> /persona</i></div>
+          <button class="btn-card" data-modal="makai">Ver plan</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ POR QUÉ NOSOTROS ============ -->
+<section id="nosotros">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Viaja tranquilo</span>
+    <h2>¿Por qué viajar con Orientours?</h2>
+    <p>Nos encargamos de todo para que tú solo te dediques a disfrutar.</p>
+  </div>
+  <div class="grid-razones">
+    <div class="razon reveal">
+      <div class="icono">🚌</div>
+      <h3>Todo incluido y organizado</h3>
+      <p>Transporte, hospedaje, alimentación y actividades en un solo plan, sin complicaciones.</p>
+    </div>
+    <div class="razon reveal">
+      <div class="icono">🛡️</div>
+      <h3>Seguro de viaje</h3>
+      <p>Todos nuestros planes incluyen póliza de asistencia para que viajes con respaldo.</p>
+    </div>
+    <div class="razon reveal">
+      <div class="icono">🧑‍✈️</div>
+      <h3>Coordinador en cada viaje</h3>
+      <p>Un coordinador Orientours y guías locales te acompañan durante toda la experiencia.</p>
+    </div>
+    <div class="razon reveal">
+      <div class="icono">💳</div>
+      <h3>Reserva y paga en abonos</h3>
+      <p>Separa tu cupo desde $100.000 y paga el resto poco a poco antes del viaje.</p>
+    </div>
+    <div class="razon reveal">
+      <div class="icono">🧍</div>
+      <h3>¿Viajas solo/a? ¡Perfecto!</h3>
+      <p>Muchos de nuestros viajeros van solos y terminan compartiendo con todo el grupo.</p>
+    </div>
+    <div class="razon reveal">
+      <div class="icono">📲</div>
+      <h3>Acompañamiento total</h3>
+      <p>Grupo de WhatsApp antes de cada salida con horarios, puntos de encuentro y recomendaciones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO RESERVAR ============ -->
+<section class="pasos" id="reservar">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Así de fácil</span>
+    <h2>Reserva tu cupo en 4 pasos</h2>
+    <p>Sin filas, sin papeleos: todo por WhatsApp con tu asesor Orientours.</p>
+  </div>
+  <div class="grid-pasos">
+    <div class="paso reveal">
+      <h3>Elige tu destino</h3>
+      <p>Explora nuestros planes y escríbenos por WhatsApp para resolver todas tus dudas.</p>
+    </div>
+    <div class="paso reveal">
+      <h3>Separa tu cupo</h3>
+      <p>Reserva desde $100.000 por persona (según el plan) por transferencia Bancolombia.</p>
+    </div>
+    <div class="paso reveal">
+      <h3>Paga en abonos</h3>
+      <p>Abona quincenal o mensual. El plan debe estar pago entre 3 y 10 días antes del viaje según el destino.</p>
+    </div>
+    <div class="paso reveal">
+      <h3>¡A viajar!</h3>
+      <p>Un día antes creamos el grupo de WhatsApp con horarios, puntos de encuentro y tips finales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Resolvemos tus dudas</span>
+    <h2>Preguntas frecuentes</h2>
+  </div>
+  <div class="faq-lista reveal">
+    <details class="faq-item">
+      <summary>¿Puedo viajar solo o sola?</summary>
+      <div class="faq-resp">¡Claro que sí! Muchas personas viajan solas y nosotros nos encargamos de integrar al grupo para que todos disfruten la experiencia. Es muy común que terminen haciendo nuevos amigos de viaje.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Desde dónde salen los buses?</summary>
+      <div class="faq-resp">Tenemos salidas desde el Oriente Antioqueño — El Carmen de Viboral (Coliseo), Rionegro (Cuatro Esquinas y Puente de Belén) y Guarne — y desde Medellín (Terminal del Norte). El punto exacto se confirma en el grupo de WhatsApp antes del viaje.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo separo mi cupo y cómo pago?</summary>
+      <div class="faq-resp">Separas tu cupo con un abono inicial (desde $100.000 según el plan) y el resto lo pagas en abonos quincenales o mensuales por transferencia Bancolombia. El plan debe quedar totalmente pago entre 3 y 10 días antes de la salida, según el destino.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Necesito saber nadar para los planes de río o mar?</summary>
+      <div class="faq-resp">No es necesario. En las actividades acuáticas siempre usarás chaleco flotante, estarás acompañado por guías y se realizan en zonas aptas y controladas.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Necesito pasaporte para el plan de Capurganá y La Miel (Panamá)?</summary>
+      <div class="faq-resp">No. Para visitar La Miel, Panamá, dentro de nuestro plan solo necesitas tu documento de identidad colombiano.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué incluyen los planes?</summary>
+      <div class="faq-resp">Todos incluyen transporte ida y regreso, hospedaje, alimentación según el plan, seguro de viaje y coordinador Orientours. Cada destino detalla sus comidas, tours y actividades incluidas.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Pueden viajar niños y adultos mayores?</summary>
+      <div class="faq-resp">Depende del destino: Mutatá recibe niños desde los 0 años, Norcasia desde los 3, y Murillo/Nevado del Ruiz permite viajeros de 7 a 69 años por la altura. El plan Solos y Solas es exclusivo para personas de 20 a 45 años. Pregunta a tu asesor por las tarifas especiales para niños.</div>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué pasa si llueve o hay mal clima?</summary>
+      <div class="faq-resp">La seguridad es lo primero. Las actividades se realizan siempre que las condiciones lo permitan; si una autoridad (puerto, Parques Nacionales) restringe el acceso, buscamos alternativas dentro de la experiencia.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section>
+  <div class="cta-final reveal">
+    <h2>Tu próxima aventura comienza hoy 🌎</h2>
+    <p>Cupos limitados por salida (¡máximo 40 viajeros!). Escríbenos y un asesor te ayudará a elegir el plan perfecto para ti.</p>
+    <a href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20reservar%20mi%20pr%C3%B3ximo%20viaje%20%F0%9F%8C%8E" target="_blank" rel="noopener" class="btn btn-coral">💬 Escríbenos por WhatsApp</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="grid-footer">
+    <div>
+      <span class="footer-logo"><span class="chip-logo"><img src="logo-icono.png" alt="Logo Orientours"></span> Orien<em>tours</em></span>
+      <p style="font-size:.92rem">Agencia de viajes y turismo. Experiencias inolvidables por Colombia con salidas desde Medellín y el Oriente Antioqueño.</p>
+    </div>
+    <div>
+      <h4>Destinos</h4>
+      <ul>
+        <li><a href="#destinos">Ballenas · Bahía Málaga</a></li>
+        <li><a href="#destinos">Capurganá y Panamá</a></li>
+        <li><a href="#destinos">Isla Fuerte</a></li>
+        <li><a href="#destinos">Nevado del Ruiz</a></li>
+        <li><a href="#destinos">Norcasia · Río La Miel</a></li>
+        <li><a href="#destinos">Mutatá Mágico</a></li>
+        <li><a href="#destinos">Solos y Solas · Necoclí</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Información</h4>
+      <ul>
+        <li><a href="#nosotros">Por qué nosotros</a></li>
+        <li><a href="#reservar">Cómo reservar</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>📱 <a href="https://wa.me/573000000000" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li>📸 <a href="https://instagram.com/Orientours_" target="_blank" rel="noopener">@Orientours_</a></li>
+        <li>📍 Medellín y Oriente Antioqueño</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© 2026 Orientours. Todos los derechos reservados. · Hecho con ❤️ para viajeros.</div>
+</footer>
+
+<!-- ============ BOTÓN WHATSAPP FLOTANTE ============ -->
+<a class="ws-flotante" href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 .8C7.6.8.8 7.6.8 16c0 2.7.7 5.3 2 7.6L.8 31.2l7.8-2c2.2 1.2 4.7 1.9 7.4 1.9 8.4 0 15.2-6.8 15.2-15.2S24.4.8 16 .8zm0 27.7c-2.3 0-4.6-.6-6.5-1.8l-.5-.3-4.6 1.2 1.2-4.5-.3-.5c-1.3-2-2-4.3-2-6.7C3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.5 16 28.5zm7-9.5c-.4-.2-2.3-1.1-2.6-1.2-.4-.1-.6-.2-.9.2-.3.4-1 1.2-1.2 1.5-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.7.1-.3 0-.5 0-.7-.1-.2-.9-2.1-1.2-2.9-.3-.8-.6-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.7-.5z"/></svg>
+</a>
+
+<!-- ============ MODALES ============ -->
+<div class="modal-fondo" id="modalFondo">
+  <div class="modal" id="modalCaja" role="dialog" aria-modal="true"></div>
+</div>
+
+<script>
+/* ---------- DATOS DE LOS PLANES ---------- */
+const planes = {
+  ballenas:{
+    titulo:"Avistamiento de Ballenas 🐋",
+    sub:"Bahía Málaga · Pacífico colombiano · 2 noches",
+    grad:"linear-gradient(150deg,#06283d,#1363a8 60%,#37b4c3)",
+    fechas:["17–20 Jul","6–9 Ago","14–17 Ago","3–6 Sep"],
+    incluye:[
+      "Transporte terrestre y marítimo ida y regreso",
+      "2 noches en Hotel Magüipi (Bahía Málaga) con piscina",
+      "Alimentación: 2 desayunos, 3 almuerzos y 2 cenas",
+      "Tour en lancha para avistamiento de ballenas",
+      "Playa Magüipi, Playa Dorada y recorrido por manglar",
+      "Impuesto de muelle turístico",
+      "Seguro hotelero y coordinador de viaje"
+    ],
+    precios:[["Acomodación múltiple","$1.020.000"],["Acomodación doble","$1.160.000"]],
+    nota:"Opcional: segundo avistamiento de ballenas por $100.000. Salida viernes ~5:00 p.m. desde Medellín y Oriente.",
+    ws:"Hola Orientours, quiero información del plan Avistamiento de Ballenas en Bahía Málaga 🐋"
+  },
+  capurgana:{
+    titulo:"Capurganá + Sapzurro + La Miel 🌴",
+    sub:"Chocó caribeño y Panamá · Sin pasaporte",
+    grad:"linear-gradient(150deg,#0c7489,#19b3a6 55%,#9be8c4)",
+    fechas:["17–20 Jul","6–9 Ago","14–17 Ago","13–16 Nov","11–14 Dic"],
+    incluye:[
+      "Bus ida y regreso desde Medellín y El Carmen de Viboral",
+      "Transporte marítimo Necoclí – Capurganá – Necoclí",
+      "Hotel con piscina y habitaciones con aire acondicionado",
+      "2 desayunos + 1 almuerzo + 1 cena",
+      "Visita a Capurganá, Sapzurro, Cabo Tiburón y La Miel (Panamá)",
+      "Seguro de viaje y coordinador durante todo el plan"
+    ],
+    precios:[["Acomodación múltiple","$875.000"],["Acomodación doble","$975.000"]],
+    nota:"No incluye tasas portuarias (~$30.000 en efectivo). Tour opcional a Playa Soledad + Bahía Aguacate: $70.000. Lleva ropa blanca para la fiesta de la primera noche.",
+    ws:"Hola Orientours, quiero información del plan Capurganá + Sapzurro + La Miel, Panamá 🌴"
+  },
+  islafuerte:{
+    titulo:"Isla Fuerte 🏝️",
+    sub:"Caribe diferente y auténtico · 2 noches",
+    grad:"linear-gradient(150deg,#f7b733,#ec7e3c 55%,#d6543a)",
+    fechas:["14–17 Ago"],
+    incluye:[
+      "Bus desde Medellín y Oriente (El Carmen) + traslados en lancha",
+      "2 noches de hospedaje en la isla",
+      "Toda la alimentación (2 desayunos, 2 almuerzos, 2 cenas)",
+      "Vuelta a la isla en lancha",
+      "Tour: la Bonga, el Árbol que Camina y la Cueva de Morgan",
+      "Punta del Inglés, Playa San Diego, Punta Arena y Cebolleta",
+      "Seguros y coordinador acompañante"
+    ],
+    precios:[["Acomodación múltiple","$735.000"],["Acomodación doble (+10%)","$808.500"]],
+    nota:"No incluye: ingreso a la isla ($10.000 en efectivo) ni alimentación en carretera. Lleva gafas de snorkel, ¡súper recomendado!",
+    ws:"Hola Orientours, quiero información del plan Isla Fuerte 🏝️"
+  },
+  murillo:{
+    titulo:"Murillo y Nevado del Ruiz 🏔️",
+    sub:"Tolima · Parque Nacional Natural Los Nevados",
+    grad:"linear-gradient(150deg,#314f6e,#6f8ba6 55%,#aebfce)",
+    fechas:["24–26 Jul","28–30 Ago","18–20 Sep","16–18 Oct","27–29 Nov","18–20 Dic"],
+    incluye:[
+      "Transporte ida y regreso desde Medellín",
+      "1 noche de hospedaje en Murillo",
+      "2 desayunos y 2 almuerzos",
+      "Ingreso al PNN Los Nevados",
+      "Cascada El Silencio, Laguna Escondida y pueblito Murillo",
+      "Laguna Negra, Arenales, Valle de las Tumbas y más (en vehículo)",
+      "Guía local, charla interpretativa y coordinador de viaje"
+    ],
+    precios:[["Habitación múltiple","$500.000"],["Cuádruple","$520.000"],["Doble","$540.000"]],
+    nota:"Edad permitida: 7 a 69 años. Destino de alta montaña (+4.000 msnm): lleva muy buen abrigo, capa de lluvia y bloqueador. No recomendado para personas con afecciones respiratorias o cardíacas, ni embarazadas.",
+    ws:"Hola Orientours, quiero información del plan Murillo y Nevado del Ruiz 🏔️"
+  },
+  norcasia:{
+    titulo:"Norcasia y Río La Miel 🛶",
+    sub:"Caldas · 2 días, 1 noche",
+    grad:"linear-gradient(150deg,#0a7e8c,#23a8a0 55%,#7fd0c2)",
+    fechas:["24–26 Jul","21–23 Ago","25–27 Sep","23–25 Oct","20–22 Nov","18–20 Dic"],
+    incluye:[
+      "Transporte ida y regreso desde Medellín",
+      "Hospedaje en hotel del pueblo",
+      "2 almuerzos, 1 desayuno y 1 snack",
+      "Body rafting por el Río La Miel (con chaleco, apto si no sabes nadar)",
+      "Visita a la Cascada La Clara",
+      "Mirador del Embalse Amaní",
+      "Coordinador de viaje y asistencia médica"
+    ],
+    precios:[["Acomodación múltiple","$420.000"],["Doble (pareja)","$462.000"],["Individual","$485.000"]],
+    nota:"Tour opcional en el embalse: $60.000. Reserva desde $150.000. Importante: lleva tenis cerrados que se puedan mojar para el río (no crocs ni sandalias). Nivel de aventura 2/5.",
+    ws:"Hola Orientours, quiero información del plan Norcasia y Río La Miel 🛶"
+  },
+  mutata:{
+    titulo:"Mutatá Mágico 💦",
+    sub:"Urabá antioqueño · 2 días, 1 noche",
+    grad:"linear-gradient(150deg,#1c6b46,#2e9e63 55%,#8fd0a4)",
+    fechas:["11–12 Jul","8–9 Ago","5–6 Sep","3–4 Oct","7–8 Nov","5–6 Dic"],
+    incluye:[
+      "Bus ida y regreso desde El Carmen de Viboral y Medellín",
+      "Hospedaje 1 noche en Linda Mariana",
+      "2 almuerzos y 1 desayuno",
+      "Charco Puenteadero (día 1)",
+      "Cavernas del Río Bedó (día 2)",
+      "Visita al parque principal de Mutatá",
+      "Seguro de viaje y coordinador"
+    ],
+    precios:[["Acomodación múltiple","$280.000"],["Acomodación doble","$308.000"],["Individual","$322.000"]],
+    nota:"Tour de tubing opcional: $60.000. Reserva con $100.000. En festivos aplica un pequeño incremento. Niños desde los 0 años son bienvenidos.",
+    ws:"Hola Orientours, quiero información del plan Mutatá Mágico 💦"
+  },
+  makai:{
+    titulo:"Solos y Solas · Makai 🎉",
+    sub:"Necoclí · Viernes a lunes · 20 a 45 años",
+    grad:"linear-gradient(150deg,#b53471,#ee5253 55%,#feca57)",
+    fechas:["3–6 Jul","31 Jul – 3 Ago"],
+    incluye:[
+      "Transporte desde Oriente Antioqueño y Medellín (bus de hombres y bus de mujeres: ¡se conocen al llegar!)",
+      "Hospedaje según acomodación elegida",
+      "2 desayunos y 2 cenas",
+      "Pool party con DJ invitado y fiesta de blanco",
+      "Fiesta Solos y Solas con manillas de colores",
+      "Clases de champeta y coctelería",
+      "Torneo de vóley playa y acceso a la playa 24 horas"
+    ],
+    precios:[["Habitación óctuple (hostal)","$730.000"],["Quíntuple (baño privado)","$780.000"],["Doble con ventilador","$860.000"],["Doble con aire","$885.000"],["VIP doble (piscina privada y vista al mar)","$975.000"]],
+    nota:"Evento para solteros y solteras de 20 a 45 años. Reserva con $200.000 y paga en abonos mensuales (pago total 10 días antes). Lleva outfit blanco para la fiesta. ¡Cupos limitados!",
+    ws:"Hola Orientours, quiero información del plan Solos y Solas en Necoclí 🎉"
+  }
+};
+
+const WS_NUM = "573000000000"; // ← Reemplaza por el número de WhatsApp real de Orientours
+
+/* ---------- NAV ---------- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('solida',window.scrollY>60));
+
+const hamb = document.getElementById('hamb');
+const menu = document.getElementById('menu');
+hamb.addEventListener('click',()=>{
+  menu.classList.toggle('abierto');
+  hamb.classList.toggle('activo');
+});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  menu.classList.remove('abierto');hamb.classList.remove('activo');
+}));
+
+/* ---------- FILTROS ---------- */
+document.querySelectorAll('.filtro').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filtro').forEach(b=>b.classList.remove('activo'));
+    btn.classList.add('activo');
+    const f = btn.dataset.filtro;
+    document.querySelectorAll('.card').forEach(card=>{
+      const mostrar = f==='todos' || card.dataset.cat.split(' ').includes(f);
+      card.classList.toggle('oculta',!mostrar);
+      if(mostrar) requestAnimationFrame(()=>card.classList.add('visible'));
+    });
+  });
+});
+
+/* ---------- MODAL ---------- */
+const fondo = document.getElementById('modalFondo');
+const caja  = document.getElementById('modalCaja');
+
+document.querySelectorAll('[data-modal]').forEach(btn=>{
+  btn.addEventListener('click',()=>abrirModal(btn.dataset.modal));
+});
+
+function abrirModal(id){
+  const p = planes[id];
+  if(!p) return;
+  caja.innerHTML = `
+    <div class="modal-cab" style="background:${p.grad}">
+      <button class="cerrar" onclick="cerrarModal()" aria-label="Cerrar">✕</button>
+      <h3>${p.titulo}</h3>
+      <div class="sub-modal">${p.sub}</div>
+    </div>
+    <div class="modal-cuerpo">
+      <h4>📅 Fechas de salida 2026</h4>
+      <div class="fechas">${p.fechas.map(f=>`<span>${f}</span>`).join('')}</div>
+      <h4>✅ El plan incluye</h4>
+      <ul class="incluye">${p.incluye.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <h4>💰 Precio por persona</h4>
+      <table class="tabla-precios">
+        ${p.precios.map(([a,v])=>`<tr><td>${a}</td><td>${v}</td></tr>`).join('')}
+      </table>
+      <div class="nota-modal">ℹ️ ${p.nota}</div>
+      <div class="modal-cta">
+        <a class="btn btn-ws" target="_blank" rel="noopener"
+           href="https://wa.me/${WS_NUM}?text=${encodeURIComponent(p.ws)}">
+           💬 Reservar por WhatsApp
+        </a>
+      </div>
+    </div>`;
+  fondo.classList.add('abierto');
+  document.body.style.overflow='hidden';
+}
+function cerrarModal(){
+  fondo.classList.remove('abierto');
+  document.body.style.overflow='';
+}
+fondo.addEventListener('click',e=>{ if(e.target===fondo) cerrarModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarModal(); });
+
+/* ---------- ANIMACIONES AL HACER SCROLL ---------- */
+const observador = new IntersectionObserver(entradas=>{
+  entradas.forEach(en=>{
+    if(en.isIntersecting){ en.target.classList.add('visible'); observador.unobserve(en.target); }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.card').forEach(el=>observador.observe(el));
+</script>
+</body>
+</html>
