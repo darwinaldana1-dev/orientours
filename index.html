@@ -8,11 +8,12 @@
 <link rel="icon" type="image/png" href="logo-icono.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --azul-prof:#0b2a4a;
     --azul:#10518f;
+    --azul-vivo:#1769c4;
     --turquesa:#3a86ab; /* azul del logo Orientours */
     --arena:#f7f1e6;
     --coral:#ff6b4a;
@@ -21,6 +22,7 @@
     --texto:#22303f;
     --gris:#5c6b7a;
     --blanco:#ffffff;
+    --fondo-suave:#f4f7fa;
     --sombra:0 18px 45px rgba(11,42,74,.14);
     --radio:22px;
   }
@@ -37,93 +39,110 @@
   a{text-decoration:none;color:inherit}
   ul{list-style:none}
 
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--azul-prof);color:#fff;
+    display:flex;justify-content:center;gap:clamp(14px,4vw,46px);flex-wrap:wrap;
+    padding:7px 5vw;font-size:.82rem;font-weight:600;
+  }
+  .topbar a{display:inline-flex;align-items:center;gap:6px;opacity:.92}
+  .topbar a:hover{opacity:1;color:var(--amarillo)}
+  .topbar .solo-pc{opacity:.75}
+
   /* ===== NAV ===== */
   .nav{
-    position:fixed;top:0;left:0;right:0;z-index:100;
+    position:sticky;top:0;left:0;right:0;z-index:100;
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 5vw;
-    transition:background .35s,box-shadow .35s,padding .35s;
+    padding:12px 5vw;
+    background:#fff;
+    box-shadow:0 2px 14px rgba(11,42,74,.08);
   }
-  .nav.solida{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(11,42,74,.10);padding:10px 5vw}
-  .nav .logo{font-weight:800;font-size:1.45rem;color:#fff;display:flex;align-items:center;gap:9px;transition:color .35s}
-  .nav.solida .logo{color:var(--azul-prof)}
+  .nav .logo{font-weight:800;font-size:1.4rem;color:var(--azul-prof);display:flex;align-items:center;gap:10px}
   .logo .brujula{
-    width:42px;height:42px;border-radius:50%;
+    width:46px;height:46px;border-radius:50%;
     background:#fff;
     display:grid;place-items:center;
-    box-shadow:0 6px 16px rgba(11,42,74,.30);
-    padding:5px;
+    padding:2px;flex:none;
   }
   .logo .brujula img{width:100%;height:100%;object-fit:contain}
-  .logo span em{font-style:normal;color:var(--coral)}
-  .nav ul{display:flex;gap:30px;align-items:center}
-  .nav ul a{color:#fff;font-weight:600;font-size:.95rem;opacity:.92;transition:color .35s,opacity .2s}
-  .nav.solida ul a{color:var(--texto)}
-  .nav ul a:hover{opacity:1;color:var(--coral)}
+  .logo span em{font-style:normal;color:var(--turquesa)}
+  .nav ul{display:flex;gap:28px;align-items:center}
+  .nav ul a{color:var(--texto);font-weight:600;font-size:.94rem;transition:color .2s}
+  .nav ul a:hover{color:var(--azul-vivo)}
   .btn-nav{
-    background:var(--coral);color:#fff !important;padding:10px 22px;border-radius:999px;
-    font-weight:700;box-shadow:0 8px 20px rgba(255,107,74,.4);transition:transform .2s;
+    background:var(--azul-vivo);color:#fff !important;padding:10px 22px;border-radius:999px;
+    font-weight:700;box-shadow:0 8px 20px rgba(23,105,196,.35);transition:transform .2s;
   }
   .btn-nav:hover{transform:translateY(-2px)}
   .hamb{display:none;background:none;border:none;cursor:pointer;z-index:110}
-  .hamb span{display:block;width:26px;height:3px;border-radius:3px;background:#fff;margin:5px 0;transition:.3s}
-  .nav.solida .hamb span{background:var(--azul-prof)}
+  .hamb span{display:block;width:26px;height:3px;border-radius:3px;background:var(--azul-prof);margin:5px 0;transition:.3s}
 
-  /* ===== HERO ===== */
+  /* ===== HERO CARRUSEL ===== */
   .hero{
-    min-height:100svh;
-    display:flex;flex-direction:column;justify-content:center;
-    position:relative;
-    padding:140px 5vw 120px;
-    background:
-      radial-gradient(1100px 520px at 85% -10%, rgba(255,193,69,.35), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, rgba(15,163,177,.5), transparent 60%),
-      linear-gradient(160deg,#0b2a4a 0%, #0e3a66 38%, #0fa3b1 100%);
+    position:relative;min-height:86svh;
+    display:flex;align-items:center;
     color:#fff;overflow:hidden;
   }
-  .hero::before{ /* sol */
-    content:"";position:absolute;top:11%;right:12%;
-    width:160px;height:160px;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%, #ffe9a8, var(--amarillo) 65%);
-    box-shadow:0 0 90px 30px rgba(255,193,69,.45);
-    animation:flotar 7s ease-in-out infinite;
+  .hero-slide{
+    position:absolute;inset:0;background-size:cover;background-position:center;
+    opacity:0;transition:opacity 1.2s ease;transform:scale(1.06);
   }
-  @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-  .hero-inner{max-width:820px;position:relative;z-index:2}
+  .hero-slide.activa{opacity:1;transform:scale(1);transition:opacity 1.2s ease, transform 7s linear}
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg,rgba(7,25,44,.82) 0%,rgba(7,25,44,.55) 45%,rgba(7,25,44,.25) 100%);
+  }
+  .hero-inner{max-width:760px;position:relative;z-index:2;padding:110px 5vw}
   .hero .chip{
     display:inline-flex;align-items:center;gap:8px;
     background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
-    padding:8px 18px;border-radius:999px;font-size:.88rem;font-weight:600;
-    backdrop-filter:blur(6px);margin-bottom:24px;
+    padding:8px 18px;border-radius:999px;font-size:.86rem;font-weight:600;
+    backdrop-filter:blur(6px);margin-bottom:22px;
   }
   .hero h1{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2.4rem,5.6vw,4.3rem);
-    line-height:1.12;font-weight:700;margin-bottom:22px;
+    font-size:clamp(2.2rem,5.2vw,3.9rem);
+    line-height:1.12;font-weight:800;margin-bottom:20px;
+    text-shadow:0 4px 24px rgba(0,0,0,.35);
   }
-  .hero h1 .destacado{color:var(--amarillo);font-style:italic}
-  .hero p.sub{font-size:clamp(1rem,1.6vw,1.22rem);max-width:600px;opacity:.92;margin-bottom:38px}
-  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .hero h1 .destacado{color:var(--amarillo)}
+  .hero p.sub{font-size:clamp(1rem,1.5vw,1.18rem);max-width:580px;opacity:.95;margin-bottom:34px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:15px 32px;border-radius:999px;font-weight:700;font-size:1rem;
     transition:transform .2s,box-shadow .2s;cursor:pointer;border:none;
   }
+  .btn-azul{background:var(--azul-vivo);color:#fff;box-shadow:0 12px 28px rgba(23,105,196,.45)}
+  .btn-azul:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,105,196,.55)}
   .btn-coral{background:var(--coral);color:#fff;box-shadow:0 12px 28px rgba(255,107,74,.45)}
-  .btn-coral:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(255,107,74,.55)}
-  .btn-fantasma{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(6px)}
-  .btn-fantasma:hover{background:rgba(255,255,255,.22);transform:translateY(-3px)}
-  .hero-olas{position:absolute;bottom:-2px;left:0;right:0;z-index:1}
-  .hero-olas svg{display:block;width:100%;height:110px}
+  .btn-coral:hover{transform:translateY(-3px)}
+  .btn-fantasma{background:rgba(255,255,255,.13);color:#fff;border:1.5px solid rgba(255,255,255,.6);backdrop-filter:blur(6px)}
+  .btn-fantasma:hover{background:rgba(255,255,255,.24);transform:translateY(-3px)}
+  .hero-pie{
+    position:absolute;bottom:26px;left:5vw;right:5vw;z-index:3;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  }
+  .hero-lugar{
+    display:inline-flex;align-items:center;gap:9px;
+    background:rgba(255,255,255,.92);color:var(--azul-prof);
+    padding:9px 18px;border-radius:999px;font-size:.86rem;font-weight:800;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .hero-puntos{display:flex;gap:9px}
+  .hero-puntos button{
+    width:11px;height:11px;border-radius:999px;border:none;cursor:pointer;
+    background:rgba(255,255,255,.45);transition:.3s;padding:0;
+  }
+  .hero-puntos button.activa{background:#fff;width:30px}
 
   /* ===== BARRA STATS ===== */
   .stats{
-    display:flex;justify-content:center;gap:clamp(20px,6vw,90px);flex-wrap:wrap;
-    padding:34px 5vw;background:#fff;
-    margin-top:-6px;
+    display:flex;justify-content:center;gap:clamp(18px,5vw,70px);flex-wrap:wrap;
+    padding:42px 5vw;background:#fff;
+    border-bottom:1px solid #eef2f6;
   }
-  .stat{text-align:center}
-  .stat b{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--azul);display:block;font-weight:800}
+  .stat{text-align:center;min-width:130px}
+  .stat b{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--azul-vivo);display:block;font-weight:800}
   .stat span{color:var(--gris);font-size:.9rem;font-weight:600}
 
   /* ===== SECCIONES ===== */
@@ -134,8 +153,7 @@
     color:var(--turquesa);font-size:.82rem;display:block;margin-bottom:12px;
   }
   .titulo-seccion h2{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.9rem,3.6vw,2.7rem);color:var(--azul-prof);margin-bottom:14px;
+    font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--azul-prof);margin-bottom:14px;font-weight:800;
   }
   .titulo-seccion p{color:var(--gris)}
 
@@ -149,7 +167,7 @@
   .filtro:hover{border-color:var(--turquesa);color:var(--turquesa)}
   .filtro.activo{background:var(--azul);border-color:var(--azul);color:#fff;box-shadow:0 8px 20px rgba(16,81,143,.3)}
 
-  /* ===== GRID DESTINOS ===== */
+  /* ===== GRID DESTINOS (tarjetas intactas) ===== */
   .destinos{background:var(--arena)}
   .grid-destinos{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
@@ -219,31 +237,91 @@
   .razon .icono{
     width:64px;height:64px;margin:0 auto 18px;border-radius:18px;
     display:grid;place-items:center;font-size:1.8rem;
-    background:linear-gradient(135deg,rgba(15,163,177,.14),rgba(16,81,143,.14));
+    background:linear-gradient(135deg,rgba(58,134,171,.13),rgba(23,105,196,.13));
   }
   .razon h3{color:var(--azul-prof);font-size:1.08rem;margin-bottom:8px}
   .razon p{color:var(--gris);font-size:.9rem}
 
-  /* ===== PASOS ===== */
-  .pasos{background:linear-gradient(160deg,var(--azul-prof),var(--azul));color:#fff}
-  .pasos .titulo-seccion h2{color:#fff}
-  .pasos .titulo-seccion p{color:rgba(255,255,255,.78)}
-  .pasos .titulo-seccion .kicker{color:var(--amarillo)}
+  /* ===== PASOS (estilo claro) ===== */
+  .pasos{background:var(--fondo-suave)}
   .grid-pasos{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:26px;max-width:1180px;margin:0 auto;counter-reset:paso;
   }
   .paso{
-    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
-    border-radius:var(--radio);padding:32px 26px;position:relative;backdrop-filter:blur(4px);
+    background:#fff;border:1.5px solid #e8eef4;
+    border-radius:var(--radio);padding:32px 26px;position:relative;
+    transition:.3s;
   }
+  .paso:hover{transform:translateY(-6px);box-shadow:var(--sombra);border-color:var(--azul-vivo)}
   .paso::before{
-    counter-increment:paso;content:"0" counter(paso);
-    font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;
-    color:var(--amarillo);display:block;margin-bottom:10px;
+    counter-increment:paso;content:counter(paso);
+    width:46px;height:46px;border-radius:50%;
+    background:var(--azul-vivo);color:#fff;
+    display:grid;place-items:center;
+    font-size:1.25rem;font-weight:800;
+    margin-bottom:16px;
+    box-shadow:0 8px 20px rgba(23,105,196,.35);
   }
-  .paso h3{font-size:1.05rem;margin-bottom:8px}
-  .paso p{font-size:.9rem;color:rgba(255,255,255,.8)}
+  .paso h3{font-size:1.05rem;margin-bottom:8px;color:var(--azul-prof)}
+  .paso p{font-size:.9rem;color:var(--gris)}
+
+  /* ===== TESTIMONIOS ===== */
+  .grid-testimonios{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:26px;max-width:1180px;margin:0 auto;
+  }
+  .testimonio{
+    background:#fff;border:1.5px solid #edf1f5;border-radius:var(--radio);
+    padding:30px 28px;display:flex;flex-direction:column;gap:14px;
+    transition:.3s;
+  }
+  .testimonio:hover{box-shadow:var(--sombra);transform:translateY(-5px)}
+  .estrellas{color:var(--amarillo);font-size:1.05rem;letter-spacing:2px}
+  .testimonio p{color:var(--texto);font-size:.95rem;flex:1}
+  .testimonio .autor{display:flex;align-items:center;gap:12px}
+  .autor .avatar{
+    width:44px;height:44px;border-radius:50%;flex:none;
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.05rem;
+  }
+  .autor b{display:block;color:var(--azul-prof);font-size:.95rem;line-height:1.25}
+  .autor span{color:var(--gris);font-size:.8rem;font-weight:600}
+
+  /* ===== COTIZAR ===== */
+  .cotizar{background:var(--fondo-suave)}
+  .caja-cotizar{
+    max-width:1100px;margin:0 auto;display:grid;
+    grid-template-columns:1fr 1.15fr;border-radius:28px;overflow:hidden;
+    box-shadow:var(--sombra);background:#fff;
+  }
+  .cotizar-info{
+    background:
+      linear-gradient(160deg,rgba(11,42,74,.88),rgba(16,81,143,.82)),
+      url('https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?q=80&w=1200&auto=format&fit=crop') center/cover;
+    color:#fff;padding:clamp(34px,4vw,52px);
+    display:flex;flex-direction:column;justify-content:center;gap:16px;
+  }
+  .cotizar-info h3{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:800;line-height:1.2}
+  .cotizar-info p{opacity:.92;font-size:.95rem}
+  .cotizar-info ul{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .cotizar-info li{display:flex;align-items:center;gap:10px;font-size:.92rem;font-weight:600}
+  .cotizar-info li::before{content:"✓";color:var(--amarillo);font-weight:800}
+  .formulario{padding:clamp(34px,4vw,52px);display:flex;flex-direction:column;gap:16px}
+  .formulario label{font-size:.84rem;font-weight:700;color:var(--azul-prof);display:block;margin-bottom:6px}
+  .formulario input,.formulario select,.formulario textarea{
+    width:100%;padding:13px 16px;border-radius:13px;border:1.5px solid #dde5ec;
+    font-family:inherit;font-size:.94rem;color:var(--texto);background:#fbfcfe;
+    transition:border-color .2s;outline:none;
+  }
+  .formulario input:focus,.formulario select:focus,.formulario textarea:focus{border-color:var(--azul-vivo)}
+  .formulario textarea{resize:vertical;min-height:84px}
+  .fila-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .btn-form{
+    background:#25d366;color:#fff;justify-content:center;width:100%;
+    box-shadow:0 10px 24px rgba(37,211,102,.4);font-size:1.02rem;
+  }
+  .btn-form:hover{transform:translateY(-2px)}
+  .nota-form{font-size:.8rem;color:var(--gris);text-align:center}
 
   /* ===== FAQ ===== */
   .faq-lista{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
@@ -267,18 +345,18 @@
   /* ===== CTA FINAL ===== */
   .cta-final{
     background:
-      radial-gradient(700px 320px at 15% 0%, rgba(255,193,69,.25), transparent 60%),
-      linear-gradient(140deg,#0fa3b1,#10518f);
+      linear-gradient(120deg,rgba(7,25,44,.78),rgba(16,81,143,.62)),
+      url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1800&auto=format&fit=crop') center/cover;
     border-radius:30px;max-width:1180px;margin:0 auto;
-    padding:clamp(46px,7vw,80px);text-align:center;color:#fff;
+    padding:clamp(46px,7vw,84px);text-align:center;color:#fff;
   }
-  .cta-final h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:14px}
-  .cta-final p{max-width:560px;margin:0 auto 32px;opacity:.92}
+  .cta-final h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:14px;font-weight:800}
+  .cta-final p{max-width:560px;margin:0 auto 32px;opacity:.94}
 
   /* ===== FOOTER ===== */
   footer{background:var(--azul-prof);color:rgba(255,255,255,.82);padding:64px 5vw 28px;margin-top:90px}
   .grid-footer{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:40px;max-width:1180px;margin:0 auto 44px;
   }
   .grid-footer h4{color:#fff;margin-bottom:16px;font-size:1rem}
@@ -311,7 +389,7 @@
   }
   @keyframes subir{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
   .modal-cab{padding:34px 36px 20px;color:#fff;border-radius:26px 26px 0 0;position:relative}
-  .modal-cab h3{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:4px}
+  .modal-cab h3{font-size:1.65rem;margin-bottom:4px;font-weight:800}
   .modal-cab .sub-modal{opacity:.92;font-weight:600;font-size:.92rem}
   .cerrar{
     position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;
@@ -367,7 +445,11 @@
   .reveal.visible{opacity:1;transform:translateY(0)}
 
   /* ===== RESPONSIVE ===== */
+  @media (max-width:920px){
+    .caja-cotizar{grid-template-columns:1fr}
+  }
   @media (max-width:840px){
+    .topbar .solo-pc{display:none}
     .nav ul{
       position:fixed;inset:0;background:var(--azul-prof);
       flex-direction:column;justify-content:center;gap:34px;
@@ -376,15 +458,23 @@
     .nav ul.abierto{transform:translateX(0)}
     .nav ul a{color:#fff !important;font-size:1.2rem}
     .hamb{display:block}
-    .hamb.activo span:nth-child(1){transform:translateY(8px) rotate(45deg);background:#fff}
+    .hamb.activo span{background:#fff}
+    .hamb.activo span:nth-child(1){transform:translateY(8px) rotate(45deg)}
     .hamb.activo span:nth-child(2){opacity:0}
-    .hamb.activo span:nth-child(3){transform:translateY(-8px) rotate(-45deg);background:#fff}
-    .hero::before{width:100px;height:100px;right:8%;top:9%}
+    .hamb.activo span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+    .fila-form{grid-template-columns:1fr}
     .modal-cab,.modal-cuerpo{padding-left:22px;padding-right:22px}
   }
 </style>
 </head>
 <body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <a href="https://wa.me/573000000000" target="_blank" rel="noopener">💬 Escríbenos por WhatsApp</a>
+  <a href="https://instagram.com/Orientours_" target="_blank" rel="noopener">📸 @Orientours_</a>
+  <span class="solo-pc">📍 Salidas desde Medellín y Oriente Antioqueño</span>
+</div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
@@ -397,26 +487,33 @@
     <li><a href="#destinos">Destinos</a></li>
     <li><a href="#nosotros">Por qué nosotros</a></li>
     <li><a href="#reservar">Cómo reservar</a></li>
-    <li><a href="#faq">Preguntas</a></li>
-    <li><a href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20informaci%C3%B3n%20de%20sus%20planes%20de%20viaje" target="_blank" rel="noopener" class="btn-nav">Reserva ahora</a></li>
+    <li><a href="#opiniones">Opiniones</a></li>
+    <li><a href="#cotizar">Cotizar</a></li>
+    <li><a href="#cotizar" class="btn-nav">Reserva ahora</a></li>
   </ul>
 </nav>
 
-<!-- ============ HERO ============ -->
+<!-- ============ HERO CARRUSEL ============ -->
 <header class="hero" id="inicio">
+  <div class="hero-slide" data-lugar="🐋 Bahía Málaga · Pacífico" style="background-image:url('https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=1800&auto=format&fit=crop')"></div>
+  <div class="hero-slide" data-lugar="🏝️ Caribe · Capurganá e Isla Fuerte" style="background-image:url('https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?q=80&w=1800&auto=format&fit=crop')"></div>
+  <div class="hero-slide" data-lugar="🏔️ Nevado del Ruiz · Murillo" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1800&auto=format&fit=crop')"></div>
+  <div class="hero-slide" data-lugar="💦 Ríos y cascadas · Norcasia y Mutatá" style="background-image:url('https://images.unsplash.com/photo-1431794062232-2a99a5431c6c?q=80&w=1800&auto=format&fit=crop')"></div>
+  <div class="hero-slide" data-lugar="🎉 Solos y Solas · Necoclí" style="background-image:url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1800&auto=format&fit=crop')"></div>
+
   <div class="hero-inner">
     <span class="chip">📍 Salidas desde Medellín y Oriente Antioqueño · Temporada 2026</span>
     <h1>Vive Colombia,<br>viaja <span class="destacado">diferente</span> con Orientours</h1>
     <p class="sub">Ballenas en el Pacífico, playas vírgenes del Caribe, páramos de alta montaña y ríos cristalinos. Planes todo organizado: transporte, hospedaje, alimentación, seguros y coordinador de viaje.</p>
     <div class="hero-cta">
-      <a href="#destinos" class="btn btn-coral">Explorar destinos →</a>
-      <a href="https://wa.me/573000000000?text=Hola%20Orientours%2C%20quiero%20asesor%C3%ADa%20para%20elegir%20mi%20pr%C3%B3ximo%20viaje" target="_blank" rel="noopener" class="btn btn-fantasma">💬 Hablar con un asesor</a>
+      <a href="#destinos" class="btn btn-azul">Explorar destinos →</a>
+      <a href="#cotizar" class="btn btn-fantasma">✈️ Cotiza tu viaje</a>
     </div>
   </div>
-  <div class="hero-olas">
-    <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 C240,110 480,10 720,45 C960,80 1200,20 1440,60 L1440,110 L0,110 Z" fill="#ffffff"/>
-    </svg>
+
+  <div class="hero-pie">
+    <span class="hero-lugar" id="heroLugar">🐋 Bahía Málaga · Pacífico</span>
+    <div class="hero-puntos" id="heroPuntos"></div>
   </div>
 </header>
 
@@ -425,7 +522,7 @@
   <div class="stat"><b>7+</b><span>Destinos increíbles</span></div>
   <div class="stat"><b>2026</b><span>Salidas confirmadas</span></div>
   <div class="stat"><b>100%</b><span>Todo organizado</span></div>
-  <div class="stat"><b>40</b><span>Viajeros por salida</span></div>
+  <div class="stat"><b>24/7</b><span>Acompañamiento en viaje</span></div>
 </div>
 
 <!-- ============ DESTINOS ============ -->
@@ -612,7 +709,7 @@
 <!-- ============ CÓMO RESERVAR ============ -->
 <section class="pasos" id="reservar">
   <div class="titulo-seccion reveal">
-    <span class="kicker">Así de fácil</span>
+    <span class="kicker">Cumple tu sueño de viajar</span>
     <h2>Reserva tu cupo en 4 pasos</h2>
     <p>Sin filas, sin papeleos: todo por WhatsApp con tu asesor Orientours.</p>
   </div>
@@ -633,6 +730,94 @@
       <h3>¡A viajar!</h3>
       <p>Un día antes creamos el grupo de WhatsApp con horarios, puntos de encuentro y tips finales.</p>
     </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section id="opiniones">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Nuestros viajeros</span>
+    <h2>Lo que dicen de Orientours</h2>
+    <p>Experiencias reales de quienes ya viajaron con nosotros.</p>
+  </div>
+  <div class="grid-testimonios">
+    <div class="testimonio reveal">
+      <div class="estrellas">★★★★★</div>
+      <p>"Ver las ballenas tan cerca de la lancha fue algo que no voy a olvidar nunca. Todo súper organizado, el coordinador pendiente de todo el grupo en todo momento."</p>
+      <div class="autor">
+        <span class="avatar" style="background:linear-gradient(135deg,#1363a8,#37b4c3)">V</span>
+        <div><b>Valentina</b><span>Avistamiento de Ballenas · Bahía Málaga</span></div>
+      </div>
+    </div>
+    <div class="testimonio reveal">
+      <div class="estrellas">★★★★★</div>
+      <p>"Viajé sola al plan de Capurganá y terminé con un grupo de amigos nuevos. Las playas son hermosas y conocer La Miel en Panamá sin pasaporte fue un plus increíble."</p>
+      <div class="autor">
+        <span class="avatar" style="background:linear-gradient(135deg,#0c7489,#19b3a6)">C</span>
+        <div><b>Camilo</b><span>Capurganá + Sapzurro + La Miel</span></div>
+      </div>
+    </div>
+    <div class="testimonio reveal">
+      <div class="estrellas">★★★★★</div>
+      <p>"El body rafting por el Río La Miel es una chimba, y lo mejor es que uno reserva con poquito y va abonando. Repetiré con ellos sin pensarlo."</p>
+      <div class="autor">
+        <span class="avatar" style="background:linear-gradient(135deg,#0a7e8c,#23a8a0)">L</span>
+        <div><b>Luisa</b><span>Norcasia · Río La Miel</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COTIZAR ============ -->
+<section class="cotizar" id="cotizar">
+  <div class="titulo-seccion reveal">
+    <span class="kicker">Cotiza y separa tu cupo</span>
+    <h2>Planea tu próximo viaje hoy</h2>
+    <p>Cuéntanos qué viaje sueñas y un asesor te responde por WhatsApp.</p>
+  </div>
+  <div class="caja-cotizar reveal">
+    <div class="cotizar-info">
+      <h3>Tu aventura está a un mensaje de distancia ✈️</h3>
+      <p>Llena el formulario y te enviaremos toda la información del plan que te interesa: fechas, precios, acomodaciones y cómo reservar.</p>
+      <ul>
+        <li>Respuesta rápida por WhatsApp</li>
+        <li>Reserva desde $100.000</li>
+        <li>Paga en abonos sin intereses</li>
+        <li>Cupos limitados por salida</li>
+      </ul>
+    </div>
+    <form class="formulario" id="formCotizar">
+      <div>
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" placeholder="¿Cómo te llamas?" required>
+      </div>
+      <div class="fila-form">
+        <div>
+          <label for="destino">Destino que te interesa</label>
+          <select id="destino" required>
+            <option value="" disabled selected>Elige un destino</option>
+            <option>Avistamiento de Ballenas · Bahía Málaga</option>
+            <option>Capurganá + Sapzurro + La Miel (Panamá)</option>
+            <option>Isla Fuerte</option>
+            <option>Murillo y Nevado del Ruiz</option>
+            <option>Norcasia · Río La Miel</option>
+            <option>Mutatá Mágico</option>
+            <option>Solos y Solas · Necoclí</option>
+            <option>Aún no sé, quiero asesoría</option>
+          </select>
+        </div>
+        <div>
+          <label for="personas">¿Cuántas personas viajan?</label>
+          <input type="number" id="personas" min="1" max="40" placeholder="Ej: 2">
+        </div>
+      </div>
+      <div>
+        <label for="mensaje">Mensaje (opcional)</label>
+        <textarea id="mensaje" placeholder="Fechas que te interesan, dudas, ocasión especial..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-form">💬 Cotizar por WhatsApp</button>
+      <span class="nota-form">Al enviar se abrirá WhatsApp con tu mensaje listo. Sin compromiso.</span>
+    </form>
   </div>
 </section>
 
@@ -711,7 +896,16 @@
       <ul>
         <li><a href="#nosotros">Por qué nosotros</a></li>
         <li><a href="#reservar">Cómo reservar</a></li>
+        <li><a href="#opiniones">Opiniones</a></li>
         <li><a href="#faq">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Pagos</h4>
+      <ul>
+        <li>🏦 Transferencia Bancolombia</li>
+        <li>💵 Reserva desde $100.000</li>
+        <li>📆 Abonos quincenales o mensuales</li>
       </ul>
     </div>
     <div>
@@ -868,10 +1062,33 @@ const planes = {
 
 const WS_NUM = "573000000000"; // ← Reemplaza por el número de WhatsApp real de Orientours
 
-/* ---------- NAV ---------- */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('solida',window.scrollY>60));
+/* ---------- CARRUSEL DEL HERO ---------- */
+const slides = document.querySelectorAll('.hero-slide');
+const heroLugar = document.getElementById('heroLugar');
+const heroPuntos = document.getElementById('heroPuntos');
+let slideActual = 0, timerHero;
 
+slides.forEach((s,i)=>{
+  const b = document.createElement('button');
+  b.setAttribute('aria-label','Foto '+(i+1));
+  b.addEventListener('click',()=>{ irSlide(i); reiniciarTimer(); });
+  heroPuntos.appendChild(b);
+});
+function irSlide(i){
+  slides[slideActual].classList.remove('activa');
+  heroPuntos.children[slideActual].classList.remove('activa');
+  slideActual = i;
+  slides[i].classList.add('activa');
+  heroPuntos.children[i].classList.add('activa');
+  heroLugar.textContent = slides[i].dataset.lugar;
+}
+function reiniciarTimer(){
+  clearInterval(timerHero);
+  timerHero = setInterval(()=>irSlide((slideActual+1)%slides.length), 5500);
+}
+irSlide(0); reiniciarTimer();
+
+/* ---------- MENÚ MÓVIL ---------- */
 const hamb = document.getElementById('hamb');
 const menu = document.getElementById('menu');
 hamb.addEventListener('click',()=>{
@@ -939,6 +1156,19 @@ function cerrarModal(){
 }
 fondo.addEventListener('click',e=>{ if(e.target===fondo) cerrarModal(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarModal(); });
+
+/* ---------- FORMULARIO DE COTIZACIÓN ---------- */
+document.getElementById('formCotizar').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nombre  = document.getElementById('nombre').value.trim();
+  const destino = document.getElementById('destino').value;
+  const pers    = document.getElementById('personas').value;
+  const msj     = document.getElementById('mensaje').value.trim();
+  let texto = `Hola Orientours 👋 Soy ${nombre} y quiero cotizar el plan: ${destino}.`;
+  if(pers) texto += ` Somos ${pers} persona(s).`;
+  if(msj)  texto += ` ${msj}`;
+  window.open(`https://wa.me/${WS_NUM}?text=${encodeURIComponent(texto)}`,'_blank');
+});
 
 /* ---------- ANIMACIONES AL HACER SCROLL ---------- */
 const observador = new IntersectionObserver(entradas=>{
