@@ -88,6 +88,22 @@
     opacity:0;transition:opacity 1.2s ease;transform:scale(1.06);
   }
   .hero-slide.activa{opacity:1;transform:scale(1);transition:opacity 1.2s ease, transform 7s linear}
+  .hero-slide .capa-nitida{
+    position:absolute;inset:0;
+    background-size:cover;background-position:inherit;background-image:inherit;
+    background-repeat:no-repeat;
+  }
+  .hero-slide .capa-difusa{display:none}
+  @media (min-width:841px){
+    .hero-slide.vertical .capa-difusa{
+      display:block;position:absolute;inset:0;
+      background-image:inherit;background-size:cover;background-position:center;
+      filter:blur(26px) brightness(.72);transform:scale(1.15);
+    }
+    .hero-slide.vertical .capa-nitida{
+      background-size:contain;background-position:center;
+    }
+  }
   .hero::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(100deg,rgba(7,25,44,.82) 0%,rgba(7,25,44,.55) 45%,rgba(7,25,44,.25) 100%);
@@ -157,41 +173,14 @@
   }
   .titulo-seccion p{color:var(--gris)}
 
-  /* ===== VIDEO BANNER ===== */
-  .video-banner{
-    position:relative;max-width:1240px;margin:0 auto 52px;
-    border-radius:var(--radio);overflow:hidden;
-    height:clamp(420px,64vh,640px);
-    background:url('video-montanas-poster.jpg') center/cover;
-    box-shadow:var(--sombra);
+  /* ===== CINTA DE VIDEO ===== */
+  .cinta-video{
+    width:100vw;margin:0 calc(50% - 50vw) 56px;
+    height:clamp(180px,30vh,330px);
+    overflow:hidden;position:relative;
   }
-  .video-banner::before{
-    content:"";position:absolute;inset:0;z-index:1;
-    backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
-    background:rgba(7,25,44,.5);
-  }
-  .video-banner video{
-    position:relative;z-index:2;height:100%;
-    aspect-ratio:9/16;object-fit:cover;
-    margin:0 auto;display:block;
-  }
-  .video-cap{
-    position:absolute;z-index:3;left:28px;bottom:24px;
-    color:#fff;max-width:300px;
-    text-shadow:0 2px 14px rgba(0,0,0,.5);
-  }
-  .video-cap b{display:block;font-size:1.15rem;font-weight:800;margin-bottom:4px}
-  .video-cap span{font-size:.88rem;opacity:.92;font-weight:600}
-  .video-insignia{
-    position:absolute;z-index:3;top:22px;right:24px;
-    background:rgba(255,255,255,.92);color:var(--azul-prof);
-    padding:7px 16px;border-radius:999px;font-size:.78rem;font-weight:800;
-    text-transform:uppercase;letter-spacing:.07em;
-  }
-  @media (max-width:680px){
-    .video-banner{height:74vh}
-    .video-cap{left:18px;bottom:16px;max-width:240px}
-    .video-cap b{font-size:1rem}
+  .cinta-video video{
+    width:100%;height:100%;object-fit:cover;display:block;
   }
 
   /* ===== FILTROS ===== */
@@ -534,8 +523,8 @@
 <header class="hero" id="inicio">
   <div class="hero-slide" data-lugar="🐋 Bahía Málaga · Pacífico" style="background-image:url('https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=1800&auto=format&fit=crop')"></div>
   <div class="hero-slide" data-lugar="🏝️ Caribe · Capurganá e Isla Fuerte" style="background-image:url('https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?q=80&w=1800&auto=format&fit=crop')"></div>
-  <div class="hero-slide" data-lugar="🏔️ Nevado del Ruiz · Murillo, Tolima" style="background-image:url('foto-murillo.jpg');background-position:center 32%"></div>
-  <div class="hero-slide" data-lugar="💦 Río La Miel · Norcasia, Caldas" style="background-image:url('foto-norcasia.jpg')"></div>
+  <div class="hero-slide vertical" data-lugar="🏔️ Nevado del Ruiz · Murillo, Tolima" style="background-image:url('foto-murillo.jpg');background-position:center 32%"><span class="capa-difusa"></span><span class="capa-nitida"></span></div>
+  <div class="hero-slide vertical" data-lugar="💦 Río La Miel · Norcasia, Caldas" style="background-image:url('foto-norcasia.jpg');background-position:center"><span class="capa-difusa"></span><span class="capa-nitida"></span></div>
   <div class="hero-slide" data-lugar="🎉 Solos y Solas · Necoclí" style="background-image:url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1800&auto=format&fit=crop')"></div>
 
   <div class="hero-inner">
@@ -570,15 +559,10 @@
     <p>Elige tu próxima aventura: mar, montaña, río o fiesta. Todos los planes incluyen transporte, hospedaje, seguros y coordinador Orientours.</p>
   </div>
 
-  <div class="video-banner reveal">
-    <span class="video-insignia">🎬 Video real de nuestros viajes</span>
-    <video autoplay muted loop playsinline preload="metadata" poster="video-montanas-poster.jpg">
-      <source src="video-montanas.mp4" type="video/mp4">
+  <div class="cinta-video reveal">
+    <video autoplay muted loop playsinline preload="metadata" poster="cinta-montanas-poster.jpg">
+      <source src="cinta-montanas.mp4" type="video/mp4">
     </video>
-    <div class="video-cap">
-      <b>San Carlos, Antioquia 🌄</b>
-      <span>Entre montañas, ríos y cascadas: así se viven nuestras excursiones.</span>
-    </div>
   </div>
 
   <div class="filtros reveal">
