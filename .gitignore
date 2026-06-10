@@ -2,3 +2,6 @@
 Videos orienturs/
 *.MOV
 *.mov
+
+# Configuracion local de herramientas
+.claude/
